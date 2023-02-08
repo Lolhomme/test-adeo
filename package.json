@@ -1,0 +1,14 @@
+{
+  "name": "test-adeo",
+  "version": "1.0.0",
+  "description": "Adeo test",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.4.2"
+  }
+}
