@@ -1,6 +1,6 @@
 const process = require('process');
 
-const { argvProcess } = require('./src/argvHandler');
+const { argvHandler } = require('./src/argvHandler');
 let data = require('./data').data;
 
 if (process.argv.length === 2) {
@@ -14,7 +14,7 @@ if (process.argv.length >= 4) {
 }
 
 try {
-	const response = argvProcess(process.argv[2]);
+	const response = argvHandler.argvProcess(process.argv[2]);
 	console.log(response);
 
 } catch (error) {
