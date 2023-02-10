@@ -2,11 +2,11 @@ let data = require('../data').data;
 
 function filterAnimals(data, filter) {
 	return data.filter(country => {
-		country.people = country.people.filter(onePerson => {
-			onePerson.animals = onePerson.animals.filter(animal => animal.name.includes(filter));
+		country.people = country.people.filter(person => {
+			person.animals = person.animals.filter(animal => animal.name.includes(filter));
 
-			return onePerson.animals.length > 0;
-		});
+			return person.animals.length > 0;
+		}).length > 0;
 
 		return country.people.length > 0;
 	});
