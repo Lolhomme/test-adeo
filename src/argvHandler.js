@@ -13,16 +13,10 @@ function filterAnimals(data, filter) {
 }
 
 function countAnimals(data) {
-	return data.map(country => {
-		country.name += ` [${country.people.length}]`;
-
-		country.people.map(person => {
-			person.name += ` [${person.animals.length}]`;
-			return person;
-		});
-
-		return country;
-	});
+	return data.map(({ name, people }) => ({
+    name: `${name} [${people.length}]`,
+    people: people.map(({ name, animals }) => ({ name: `${name} [${animals.length}]`, animals}))
+}));
 }
 
 function argvProcess(argv) {
