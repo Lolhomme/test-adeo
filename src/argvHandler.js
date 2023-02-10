@@ -6,7 +6,7 @@ function filterAnimals(data, filter) {
 			person.animals = person.animals.filter(animal => animal.name.includes(filter));
 
 			return person.animals.length > 0;
-		}).length > 0;
+		});
 
 		return country.people.length > 0;
 	});
