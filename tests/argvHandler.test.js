@@ -1,14 +1,86 @@
 const { argvHandler } = require('../src/argvHandler');
+const { filterAnimalsMock, countAnimalsMock } = require('../tests/mock');
+
 let data = require('../data').data;
 
-describe('argvProcess method', () => {
+describe('filterAnimals', () => {
+  let copyData;
+  beforeEach(() => {
+    copyData = structuredClone(data);
+  });
+
+  it('should return an empty array on 0 results', () => {
+    expect(argvHandler.filterAnimals(copyData, 'yguwdeweu')).toEqual([]);
+  });
+
+  it('should filter on valid filter parameter', () => {
+    expect(argvHandler.filterAnimals(copyData, 'or').length).toBeGreaterThan(0);
+  });
+
+  it('should return a valid response', () => {
+    copyData = filterAnimalsMock;
+    const expectedResponse = [{
+      name: 'Dillauti',
+      people:
+        [
+          {
+            name: 'Bobby Ristori',
+            animals:
+              [
+                { name: 'Chipmunk' },
+              ]
+          },
+        ]
+    }];
+    expect(argvHandler.filterAnimals(copyData, 'un')).toEqual(expectedResponse);
+  });
+});
+
+describe('countAnimals', () => {
+  it('should return a valid count', () => {
+    const copyData = countAnimalsMock;
+    const exepectedResponse = [
+      {
+        name: 'Dillauti [2]',
+        people:
+          [
+            {
+              name: 'Winifred Graham [6]',
+              animals:
+                [{ name: 'Anoa' },
+                { name: 'Duck' },
+                { name: 'Narwhal' },
+                { name: 'Badger' },
+                { name: 'Cobra' },
+                { name: 'Crow' }]
+            },
+            {
+              name: 'Bobby Ristori [9]',
+              animals:
+                [{ name: 'Kowari' },
+                { name: 'Caecilian' },
+                { name: 'Common Genet' },
+                { name: 'Chipmunk' },
+                { name: 'Aardwolf' },
+                { name: 'Przewalski\'s Horse' },
+                { name: 'Badger' },
+                { name: 'Sand Cat' },
+                { name: 'Linne\'s Two-toed Sloth' }]
+            },
+          ]
+      },
+    ];
+    expect(argvHandler.countAnimals(copyData)).toEqual(exepectedResponse);
+  });
+});
+
+describe('argvProcess', () => {
   it('should not return an empty array on 0 results', () => {
     expect(argvHandler.argvProcess('--filter=wdnwldn')).toEqual('Nothing found');
   });
 
   it('should throw on wrong parameter', () => {
-    const failedResultFilter = '--dadasd';
-    expect(() => argvHandler.argvProcess(failedResultFilter)).toThrow('Wrong parameter');
+    expect(() => argvHandler.argvProcess('--dadasd')).toThrow('Wrong parameter');
   });
 
   it('should filter on valid filter parameter', () => {
@@ -51,164 +123,5 @@ describe('argvProcess method', () => {
   });
 })
 
-describe('filterAnimals method', () => {
-  let copyData;
-  beforeEach(() => {
-    copyData = structuredClone(data);
-  });
 
-  it('should return an empty array on 0 results', () => {
-    expect(argvHandler.filterAnimals(copyData, 'yguwdeweu')).toEqual([]);
-  });
 
-  it('should filter on valid filter parameter', () => {
-    expect(argvHandler.filterAnimals(copyData, 'or').length).toBeGreaterThan(0);
-  });
-
-  it('should return a valid response', () => {
-    copyData = [
-      {
-        name: 'Dillauti',
-        people:
-          [{
-            name: 'Winifred Graham',
-            animals:
-              [{ name: 'Anoa' },
-              { name: 'Duck' },
-              { name: 'Narwhal' },
-              { name: 'Badger' },
-              { name: 'Cobra' },
-              { name: 'Crow' }]
-          },
-          {
-            name: 'Blanche Viciani',
-            animals:
-              [{ name: 'Barbet' },
-              { name: 'Rhea' },
-              { name: 'Snakes' },
-              { name: 'Antelope' },
-              { name: 'Echidna' },
-              { name: 'Crow' },
-              { name: 'Guinea Fowl' },
-              { name: 'Deer Mouse' }]
-          },
-          {
-            name: 'Philip Murray',
-            animals:
-              [{ name: 'Sand Dollar' },
-              { name: 'Buzzard' },
-              { name: 'Elephant' },
-              { name: 'Xenops' },
-              { name: 'Dormouse' },
-              { name: 'Anchovy' },
-              { name: 'Dinosaur' }]
-          },
-          {
-            name: 'Bobby Ristori',
-            animals:
-              [{ name: 'Kowari' },
-              { name: 'Caecilian' },
-              { name: 'Common Genet' },
-              { name: 'Chipmunk' },
-              { name: 'Aardwolf' },
-              { name: 'Przewalski\'s Horse' },
-              { name: 'Badger' },
-              { name: 'Sand Cat' },
-              { name: 'Linne\'s Two-toed Sloth' }]
-          },
-          {
-            name: 'Louise Pinzauti',
-            animals:
-              [{ name: 'Manta Ray' },
-              { name: 'Nubian Ibex' },
-              { name: 'Warbler' },
-              { name: 'Duck' },
-              { name: 'Mice' }]
-          }]
-      },
-    ];
-    const expectedResponse = [{
-      name: 'Dillauti',
-      people:
-        [
-          {
-            name: 'Bobby Ristori',
-            animals:
-              [
-                { name: 'Chipmunk' },
-              ]
-          },
-        ]
-    }];
-    expect(argvHandler.filterAnimals(copyData, 'un')).toEqual(expectedResponse);
-  });
-});
-
-describe('countAnimals method', () => {
-  it('should return a valid count', () => {
-    const copyData = [
-      {
-        name: 'Dillauti',
-        people:
-          [
-            {
-              name: 'Winifred Graham',
-              animals:
-                [{ name: 'Anoa' },
-                { name: 'Duck' },
-                { name: 'Narwhal' },
-                { name: 'Badger' },
-                { name: 'Cobra' },
-                { name: 'Crow' }]
-            },
-
-            {
-              name: 'Bobby Ristori',
-              animals:
-                [{ name: 'Kowari' },
-                { name: 'Caecilian' },
-                { name: 'Common Genet' },
-                { name: 'Chipmunk' },
-                { name: 'Aardwolf' },
-                { name: 'Przewalski\'s Horse' },
-                { name: 'Badger' },
-                { name: 'Sand Cat' },
-                { name: 'Linne\'s Two-toed Sloth' }]
-            },
-          ]
-      },
-    ];
-    const exepectedResponse = [
-      {
-        name: 'Dillauti [2]',
-        people:
-          [
-            {
-              name: 'Winifred Graham [6]',
-              animals:
-                [{ name: 'Anoa' },
-                { name: 'Duck' },
-                { name: 'Narwhal' },
-                { name: 'Badger' },
-                { name: 'Cobra' },
-                { name: 'Crow' }]
-            },
-            {
-              name: 'Bobby Ristori [9]',
-              animals:
-                [{ name: 'Kowari' },
-                { name: 'Caecilian' },
-                { name: 'Common Genet' },
-                { name: 'Chipmunk' },
-                { name: 'Aardwolf' },
-                { name: 'Przewalski\'s Horse' },
-                { name: 'Badger' },
-                { name: 'Sand Cat' },
-                { name: 'Linne\'s Two-toed Sloth' }]
-            },
-          ]
-      },
-    ];
-    expect(argvHandler.countAnimals(copyData)).toEqual(exepectedResponse);
-  });
-});

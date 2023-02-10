@@ -30,16 +30,16 @@ function argvProcess(argv) {
 
 	if (!argv.startsWith('--filter=') && argv !== '--count') throw 'Wrong parameter';
 
-	else if (argv.startsWith('--filter=')) {
+	if (argv.startsWith('--filter=')) {
 		const filter = argv.split('=')[1];
 		dataResponse = filterAnimals(dataResponse, filter);
 
 		return dataResponse.length > 0 ? JSON.stringify(dataResponse, null, 2) : 'Nothing found';
-	} else {
-		dataResponse = countAnimals(dataResponse);
-
-		return JSON.stringify(dataResponse, null, 2);
 	}
+	
+	dataResponse = countAnimals(dataResponse);
+
+	return JSON.stringify(dataResponse, null, 2);
 };
 
 module.exports.argvHandler = { filterAnimals, countAnimals, argvProcess }
