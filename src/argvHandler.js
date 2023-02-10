@@ -14,9 +14,9 @@ function filterAnimals(data, filter) {
 
 function countAnimals(data) {
 	return data.map(({ name, people }) => ({
-    name: `${name} [${people.length}]`,
-    people: people.map(({ name, animals }) => ({ name: `${name} [${animals.length}]`, animals}))
-}));
+		name: `${name} [${people.length}]`,
+		people: people.map(({ name, animals }) => ({ name: `${name} [${animals.length}]`, animals }))
+	}));
 }
 
 function argvProcess(argv) {
@@ -30,7 +30,7 @@ function argvProcess(argv) {
 
 		return dataResponse.length > 0 ? JSON.stringify(dataResponse, null, 2) : 'Nothing found';
 	}
-	
+
 	dataResponse = countAnimals(dataResponse);
 
 	return JSON.stringify(dataResponse, null, 2);
